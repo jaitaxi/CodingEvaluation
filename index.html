@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMPLOYEE MANAGEMENT SYSTEM</title>
+</head>
+
+<body>
+    <style>
+        form {
+            width: 30%;
+            margin: auto;
+            padding: 10px 0;
+            border: 1px solid black;
+            border-radius: 5px;
+            background-color: #ADD2EC;
+        }
+
+        input,
+        select {
+            display: block;
+            padding: 10px;
+            border: 1px solid black;
+            border-radius: 6px;
+            margin: auto;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            margin: auto;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        th{
+            background-color: #ADD2EC;
+        }
+    </style>
+<!-- form-section -->
+    <form id="form">
+        <h1>Hire a New Employee</h1>
+        <input type="text" id="name" placeholder="Name" required />
+        <select id="job" required>
+            <option value="Select Job">Select Job Role</option>
+            <option value="Developer">Developer</option>
+            <option value="Graphics Designer">Graphics Designer</option>
+            <option value="Hr manager">Hr Manager</option>
+        </select>
+        <select id="department" required>
+            <option value="Select Role Type">Select Department</option>
+            <option value="Office-work">Office work Department</option>
+            <option value="HR">HR Work</option>
+        </select>
+        <input type="number" id="salary" placeholder="Monthly Salary" required />
+        <input type="email" id="email" placeholder="Contact Email" required />
+        <input type="text" id="exp" placeholder="Work Experience In Year" required />
+        <input type="submit" id="button" value="Hire" />
+    </form>
+
+    <hr>
+<!-- table-section -->
+    <table border="1px solid black" cellspacing="10px" cellpadding="10px">
+        <thead>
+            <tr>
+                <th>Employee name</th>
+                <th>Job Role</th>
+                <th>Department</th>
+                <th>Salary</th>
+                <th>Contact Email</th>
+                <th>Work Experience</th>
+                <th>Role Type</th>
+                <th>Fire Employee</th>
+            </tr>
+        </thead>
+        <tbody id="data"> </tbody>
+    </table>
+
+    <h1 id="count"></h1>
+
+    <h1 id="sel"></h1>
+
+</body>
+<script>
+    let count = 0;
+    let sal = 0;
+
+    document.getElementById("form").addEventListener("submit", function (e) {
+        e.preventDefault()
+
+        let name = document.getElementById("name").value
+        let job = document.getElementById("job").value
+        let department = document.getElementById("department").value
+        let salary = document.getElementById("salary").value
+        let email = document.getElementById("email").value
+        let exp = document.getElementById("exp").value
+
+        console.log(name, job, department, email, salary, exp);
+
+        let tr = document.createElement("tr")
+        let td1 = document.createElement("td")
+        td1.innerHTML = name
+        let td2 = document.createElement("td")
+        td2.innerHTML = job
+        let td3 = document.createElement("td")
+        td3.innerHTML = department
+        let td4 = document.createElement("td")
+        td4.innerHTML = salary
+        let td5 = document.createElement("td")
+        td5.innerHTML = email
+        let td6 = document.createElement("td")
+        td6.innerHTML = exp
+        // experience
+        let td7 = document.createElement("td")
+        if (exp <= 5) {
+            td7.innerHTML = "Junior"
+        }
+        else {
+            td7.innerHTML = "Senior"
+        }
+        // delete
+        let td8 = document.createElement("td")
+        td8.innerHTML = "Delete"
+        td8.style.background = "red"
+        td8.style.textAlign = "center"
+        td8.style.color = "#FFFFFF"
+        td8.addEventListener("click", function (ev) {
+            ev.target.parentNode.remove()
+
+            
+            count = count - 1;
+            document.getElementById("count").innerHTML = `Total Employee:${count}`;
+
+
+            sal = sal - Number(salary)
+            document.getElementById("sel").innerHTML = `Total Salary:${sal}`;
+        });
+
+        count = count + 1;
+        document.getElementById("count").innerHTML = `Total Employee:${count}`;
+
+        sal = sal + Number(salary)
+        document.getElementById("sel").innerHTML = `Total Salary:${sal}`;
+
+        tr.append(td1, td2, td3, td4, td5, td6, td7, td8)
+        console.log(tr);
+        document.getElementById("data").append(tr)
+    })
+</script>
+
+</html>
